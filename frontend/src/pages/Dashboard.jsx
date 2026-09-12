@@ -32,6 +32,8 @@ const Dashboard = ({ user, onLogout }) => {
   const [now, setNow] = useState(Date.now());
   const [notice, setNotice] = useState("");
 
+  const [hoverDirection, setHoverDirection] = useState(null);
+
   async function load() {
     const [m, c, t, a] = await Promise.all([
       API.get("/market"),
@@ -118,7 +120,7 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="demo-pill">DEMO ACCOUNT</div>
         <div className="top-actions">
           <div className="balance">
-            <Wallet size={16} /> ${balance.toFixed(2)}
+            <Wallet size={16} /> ${balance?.toFixed(2)}
           </div>
           <button className="icon-btn" title="Demo only">
             <CircleHelp size={18} />
@@ -161,7 +163,16 @@ const Dashboard = ({ user, onLogout }) => {
             </div>
           </div>
 
-          <CandleChart candles={candles} symbol={symbol} />
+          <CandleChart
+            candles={candles}
+            symbol={symbol}
+            hoverDirection={hoverDirection}
+            expiry={expiry}
+            amount={Number(amount)}
+            trades={openTrades}
+            now={now}
+            currentPrice={current}
+          />
 
           <section className="contracts">
             <div className="section-head">
@@ -268,10 +279,21 @@ const Dashboard = ({ user, onLogout }) => {
             <strong>+80%</strong>
           </div>
 
-          <button className="trade-btn up" onClick={() => place("UP")}>
+          <button
+            className="trade-btn up"
+            onMouseEnter={() => setHoverDirection("UP")}
+            onMouseLeave={() => setHoverDirection(null)}
+            onClick={() => place("UP")}
+          >
             <TrendingUp /> UP
           </button>
-          <button className="trade-btn down" onClick={() => place("DOWN")}>
+
+          <button
+            className="trade-btn down"
+            onMouseEnter={() => setHoverDirection("DOWN")}
+            onMouseLeave={() => setHoverDirection(null)}
+            onClick={() => place("DOWN")}
+          >
             <TrendingDown /> DOWN
           </button>
 
@@ -282,6 +304,6 @@ const Dashboard = ({ user, onLogout }) => {
       </main>
     </div>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;

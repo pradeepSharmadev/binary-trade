@@ -1,0 +1,371 @@
+.candle-chart-shell {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+  background: #0e1526;
+  border: 1px solid #1d2941;
+  border-radius: 14px;
+}
+
+/*
+  Lightweight Charts canvas
+*/
+.candle-chart-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+  All custom trade elements sit above the canvas.
+  pointer-events: none means they do not block chart
+  scrolling, zooming, or crosshair interaction.
+*/
+.candle-chart-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ============================================================
+   PREVIEW
+   ============================================================ */
+
+.trade-preview-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-1px);
+  border-radius: 999px;
+  opacity: 0.95;
+}
+
+.trade-preview-arrow {
+  position: absolute;
+  z-index: 13;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid;
+  border-radius: 50%;
+
+  background: rgba(8, 13, 25, 0.92);
+
+  font-size: 28px;
+  font-weight: 800;
+
+  text-shadow: 0 0 12px currentColor;
+
+  transform: translateY(-50%);
+}
+
+.arrow-up {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.arrow-down {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.trade-preview-info {
+  position: absolute;
+  left: 18px;
+  z-index: 15;
+
+  min-width: 150px;
+  padding: 8px 11px;
+
+  border: 1px solid;
+  border-radius: 9px;
+
+  background: rgba(8, 13, 25, 0.96);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.preview-info-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  font-size: 12px;
+}
+
+.preview-info-top strong {
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.preview-info-bottom {
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.trade-price-label {
+  position: absolute;
+  right: 0;
+  z-index: 14;
+
+  min-width: 150px;
+  height: 34px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  transform: translateY(-50%);
+
+  border-radius: 7px 0 0 7px;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+}
+
+.trade-price-label span {
+  font-variant-numeric: tabular-nums;
+}
+
+.trade-price-label b {
+  font-size: 11px;
+}
+
+/* ============================================================
+   OPEN TRADE
+   ============================================================ */
+
+.open-trade-line {
+  position: absolute;
+  z-index: 11;
+
+  height: 3px;
+  transform: translateY(-50%);
+
+  border-radius: 999px;
+}
+
+.trade-entry-dot {
+  position: absolute;
+  z-index: 16;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.trade-amount-badge {
+  position: absolute;
+  z-index: 16;
+
+  min-width: 58px;
+  height: 32px;
+  padding: 0 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+
+  transform: translateY(-50%);
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.trade-direction-arrow {
+  position: absolute;
+  z-index: 16;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid;
+  border-radius: 50%;
+
+  background: #080d19;
+
+  font-size: 20px;
+  font-weight: 900;
+
+  transform: translateY(-50%);
+  text-shadow: 0 0 10px currentColor;
+}
+
+.trade-direction-label {
+  position: absolute;
+  z-index: 16;
+
+  transform: translateX(-50%);
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.trade-countdown {
+  position: absolute;
+  z-index: 16;
+
+  min-width: 70px;
+  height: 28px;
+  padding: 0 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid;
+  border-radius: 7px;
+
+  background: #080d19;
+
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+
+  transform: translateX(-50%);
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.trade-entry-price {
+  position: absolute;
+  z-index: 16;
+
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+
+  opacity: 0.9;
+}
+
+/* ============================================================
+   OHLC CROSSHAIR TOOLTIP
+   ============================================================ */
+
+.ohlc-tooltip {
+  position: absolute;
+  z-index: 30;
+
+  width: 190px;
+  padding: 12px;
+
+  border: 1px solid #1d2941;
+  border-radius: 10px;
+
+  background: rgba(8, 13, 25, 0.97);
+  backdrop-filter: blur(12px);
+
+  color: #e2e8f0;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(29, 41, 65, 0.25);
+
+  pointer-events: none;
+}
+
+.ohlc-tooltip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ohlc-tooltip-header strong {
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.ohlc-tooltip-header span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.ohlc-divider {
+  height: 1px;
+  margin: 9px 0;
+
+  background: #1d2941;
+}
+
+.ohlc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 6px;
+
+  font-size: 11px;
+}
+
+.ohlc-row span {
+  color: #94a3b8;
+}
+
+.ohlc-row b {
+  color: #e2e8f0;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ohlc-row .ohlc-high {
+  color: #16d889;
+}
+
+.ohlc-row .ohlc-low {
+  color: #ff5264;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+  .candle-chart-shell {
+    min-height: 380px;
+    border-radius: 10px;
+  }
+
+  .trade-preview-info {
+    left: 10px;
+  }
+
+  .trade-price-label {
+    min-width: 125px;
+    font-size: 10px;
+  }
+
+  .ohlc-tooltip {
+    width: 170px;
+  }
+}
